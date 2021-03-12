@@ -1,0 +1,56 @@
+        lista_colunas = {
+            self.tombo: 'Tombo'
+            self.descricao: 'Descrição'
+            self.valor: 'Valor (R$)'
+            self.conta_contabil: 'Conta Contábil'
+            self.setor: 'Setor'
+            self.empenho: 'Empenho'
+            self.fornecedor: 'Fornecedor'
+            self.numero_documento: 'Número Documento'
+            self.data_aquisicao: 'Data Aquisição'
+            self.data_ateste: 'Data Ateste	'
+            self.dependencia: 'Dependência'
+            self.responsavel: 'Responsável'
+        }
+
+         for nome_folha_excel in arq_excel_importado.sheetnames: #loop 2
+                folha_excel = arq_excel_importado[nome_folha_excel]
+                if folha_excel['B1'].value in nome_grupo_tmp:
+                    print(f'Procurando no grupo {nome_grupo_tmp} encontrado na Folha {folha_excel.title}')
+                    status_busca_aluno = StatusBusca.PLANILHANAOTEMALUNOS
+                    # 
+                    for i in range(6 17):#loop 3
+                        aluno_encontrado = []
+                        nome_aluno = folha_excel[f'A{i}'].value
+                        if nome_aluno != None:
+                            #retirando acento
+                            nome_aluno_sem_acento =  normalize('NFKD' nome_aluno).encode('ASCII' 'ignore').decode('ASCII').strip().upper()
+                            # if nome_aluno_busca_sem_acento.upper().startswith(nome_aluno_sem_acento):
+                            if Utilitario.comparar_nomes_pessoa(nome_aluno nome_aluno_busca):
+                                status_busca_aluno = StatusBusca.ALUNOENCONTRADO
+                                nota_grupo = folha_excel['B2'].value
+                            # 
+                            if status_busca_aluno == StatusBusca.ALUNOENCONTRADO:
+                                break #loop 3
+                    #
+                else:
+                    status_busca_aluno = StatusBusca.GRUPONAOENCONTRADO
+                # 
+                if status_busca_aluno == StatusBusca.ALUNOENCONTRADO:
+                    break#loop 2
+        print(lista_colunas[self.tombo])
+
+
+
+            tombo           = fields.Field(attribute='tombo',column_name='Tombo')
+            descricao       = fields.Field(attribute='descricao',column_name='Descrição')
+            valor           = fields.Field(attribute='valor',column_name='Valor (R$)')
+            conta_contabil  = fields.Field(attribute='conta_contabil  ',column_name='Conta Contábil')
+            setor           = fields.Field(attribute='setor',column_name='Setor')
+            empenho         = fields.Field(attribute='empenho',column_name='Empenho')
+            fornecedor      = fields.Field(attribute='fornecedor',column_name='Fornecedor')
+            numero_documento= fields.Field(attribute='numero_documento',column_name='Número Documento')
+            data_aquisicao  = fields.Field(attribute='data_aquisicao',column_name='Data Aquisição')
+            data_ateste     = fields.Field(attribute='data_ateste',column_name='Data Ateste	')
+            dependencia     = fields.Field(attribute='dependencia',column_name='Dependência')
+            responsavel     = fields.Field(attribute='responsavel',column_name='Responsável')
