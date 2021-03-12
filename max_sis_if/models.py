@@ -9,8 +9,8 @@ class Setor(models.Model):
         verbose_name = 'Setor'
         verbose_name_plural ='Setores'
 
-    sigla =  models.SlugField(max_length=7, verbose_name='Sigla')
-    nome =  models.SlugField(max_length=7, verbose_name='Nome Setor', null=True, blank=True)
+    sigla =  models.SlugField(max_length=10, verbose_name='Sigla')
+    nome =  models.SlugField(max_length=10, verbose_name='Nome Setor', null=True, blank=True)
     observacao = RichTextField(verbose_name='Observação', null=True, blank=True)
     def __str__(self):
         if self!= None:

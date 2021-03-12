@@ -78,4 +78,6 @@ class ItemInventarioResource(resources.ModelResource):
             instance.dependencia_conferencia = instance.dependencia_atual
 
         return super().before_save_instance(instance, using_transactions, dry_run)
-    
+
+
+
