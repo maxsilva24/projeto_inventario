@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 import django_heroku
 
@@ -39,7 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'max_sis_if.apps.MaxSisIfConfig'
+     #criadas
+    'max_sis_if.apps.MaxSisIfConfig',
+    #Terceiros
+    'import_export',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -121,5 +127,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_URL = '/static/'
+MEDIA_URL='media/'
+MEDIA_ROOT =os.path.join(BASE_DIR, 'media')
 
+
+#WhiteNoise
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#django_import-export
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+#ckeditor
+CKEDITOR_UPLOAD_PATH = "uploads/"
 django_heroku.settings(locals())
