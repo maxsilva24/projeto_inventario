@@ -5,6 +5,7 @@ from import_export.admin import ImportExportModelAdmin
 from .models import Dependencia, ItemInventario, Setor
 from .resources import ItemInventarioResource
 
+admin.AdminSite.site_header = 'Administração do Sistema'
 
 # Register your models here.
 @admin.register(Setor)
