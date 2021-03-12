@@ -12,15 +12,15 @@ class ItemInventarioResource(resources.ModelResource):
     # 
     item_conferido     = fields.Field(attribute='item_conferido',column_name='Item Conferido?', widget=BooleanWidget())
     usuario_conferencia  = fields.Field(attribute='usuario_conferencia',column_name='Conferido Por:', widget=ForeignKeyWidget(User, field= 'first_name'))
-    data_conferencia= fields.Field(attribute='data_conferencia',column_name='Data conferência', widget=DateTimeWidget())
+    # data_conferencia= fields.Field(attribute='data_conferencia',column_name='Data conferência', widget=DateTimeWidget())
     observacao       = fields.Field(attribute='observacao',column_name='Observação')
     # 
     valor           = fields.Field(attribute='valor',column_name='Valor (R$)', widget=FloatWidget())
     conta_contabil  = fields.Field(attribute='conta_contabil',column_name='Conta Contábil', widget=IntegerWidget())
     setor_atual     = fields.Field(attribute='setor_atual',column_name='Setor',  widget=ForeignKeyWidget(Setor, field='sigla'))
-    empenho         = fields.Field(attribute='empenho',column_name='Empenho',widget=IntegerWidget() )
+    empenho         = fields.Field(attribute='empenho',column_name='Empenho')
     fornecedor      = fields.Field(attribute='fornecedor',column_name='Fornecedor')
-    numero_documento= fields.Field(attribute='numero_documento',column_name='Número Documento',widget=IntegerWidget() )
+    numero_documento= fields.Field(attribute='numero_documento',column_name='Número Documento' )
     data_aquisicao  = fields.Field(attribute='data_aquisicao',column_name='Data Aquisição', widget=DateWidget())
     data_ateste     = fields.Field(attribute='data_ateste',column_name='Data Ateste', widget=DateWidget())
     dependencia_atual     = fields.Field(attribute='dependencia_atual',column_name='Dependência', widget=ForeignKeyWidget(Dependencia, field= 'nome_dependencia'))
@@ -35,7 +35,7 @@ class ItemInventarioResource(resources.ModelResource):
         #if you want to exclude any field from exporting
         exclude = ('id','usuario_conferencia', 'setor_conferencia', 'observacao','data_importacao', )    
         fields = ( 'tombo','descricao',
-                   'item_conferido','usuario_conferencia','data_conferencia','observacao',
+                   'item_conferido','usuario_conferencia','observacao',
                    'valor', 'conta_contabil','setor_atual',  'empenho', 
                    'fornecedor', 'numero_documento', 'data_aquisicao', 
                    'data_ateste', 'dependencia_atual','responsavel',  )
