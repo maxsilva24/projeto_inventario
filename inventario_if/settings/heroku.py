@@ -1,7 +1,8 @@
-from inventario_if.settings.base import *
-from  environ import Environ
+import environ
 
-env = Environ()
+from inventario_if.settings.base import *
+
+env = environ.Env()
 
 DEBUG = env.bool("DEBUG", False)
 
@@ -10,5 +11,5 @@ SECRET_KEY = env("SECRET_KEY")
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 DATABASES = {
-    "default": env.db(), 
+    "default": env.db(),
 }
