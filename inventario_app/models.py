@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.admin import User, UserAdmin
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField 
 
 # Create your models here.
 class Setor(models.Model):
@@ -9,7 +11,7 @@ class Setor(models.Model):
 
     sigla =  models.SlugField(max_length=7, verbose_name='Sigla')
     nome =  models.SlugField(max_length=7, verbose_name='Nome Setor', null=True, blank=True)
-    observacao = models.TextField(verbose_name='Observação',null=True, blank=True)
+    observacao = RichTextField(verbose_name='Observação', null=True, blank=True)
     def __str__(self):
         if self!= None:
             if self.sigla!= None and len(self.sigla) > 0 :
@@ -21,7 +23,8 @@ class Dependencia(models.Model):
         verbose_name = 'Dependência'
         verbose_name_plural ='Dependências'
     nome_dependencia= models.CharField(max_length=255,verbose_name='Nome da Dependência')
-    observacao = models.TextField(verbose_name='Observação',null=True, blank=True)
+    descricao_local = RichTextUploadingField(verbose_name='Descrição do Local',null=True, blank=True)
+    observacao = RichTextField(verbose_name='Observação',null=True, blank=True,)
     def __str__(self):
         return self.nome_dependencia
 class ItemInventario(models.Model):
@@ -35,7 +38,7 @@ class ItemInventario(models.Model):
     usuario_conferencia = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Conferido por', null=True)
     dependencia_atual = models.ForeignKey(Dependencia, on_delete=models.CASCADE, verbose_name='Dependência Atual',null=True,blank=True, related_name='dependencia_atual')
     dependencia_conferencia = models.ForeignKey(Dependencia, on_delete=models.CASCADE, verbose_name='Dependência Conferência',null=True,blank=True, related_name='dependencia_conferencia')
-    observacao = models.TextField(verbose_name='Observação',null=True, blank=True)
+    observacao = RichTextUploadingField(verbose_name='Observação',null=True, blank=True)
     data_conferencia =  models.DateTimeField(verbose_name='Data Últ. Conferência',auto_now=True)
     # 
     valor = models.DecimalField(verbose_name='Valor R$', max_digits=9, decimal_places=2,null=True)

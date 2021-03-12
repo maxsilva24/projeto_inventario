@@ -1,8 +1,10 @@
 from django.contrib import admin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
-from .models import ItemInventario, Setor, Dependencia
+
+from .models import Dependencia, ItemInventario, Setor
 from .resources import ItemInventarioResource
+
 
 # Register your models here.
 @admin.register(Setor)
@@ -36,7 +38,7 @@ class ItemInventarioAdmin(ImportExportModelAdmin):
     resource_class = ItemInventarioResource 
     '''Admin View for '''
     list_display = ('tombo', 'descricao','item_conferido', 'usuario_nome', 'dependencia_conferencia', 'setor_conferencia',)    
-    # fields = ( 'tombo', 'descricao','item_conferido', 'usuario_conferencia', 'dependencia', 'observacao', 'setor', )
+    list_display_links =('tombo','descricao')
     list_filter = ('item_conferido','usuario_conferencia__first_name',)
     search_fields = ('tombo','descricao',)
     readonly_fields = ('tombo', 'descricao', 'usuario_conferencia','valor', 'conta_contabil', 

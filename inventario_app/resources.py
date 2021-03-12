@@ -3,6 +3,7 @@ from django.contrib.auth.admin import User
 from import_export import resources, fields
 from import_export.admin import ImportExportModelAdmin
 from import_export.widgets import ForeignKeyWidget, FloatWidget, IntegerWidget, DateWidget, BooleanWidget, DateTimeWidget
+from django.contrib.auth.models import UserManager
 
 class ItemInventarioResource(resources.ModelResource):
 
@@ -60,9 +61,11 @@ class ItemInventarioResource(resources.ModelResource):
             (dependencia, _created) = Dependencia.objects.get_or_create(nome_dependencia=dependencia)
             row['Dependência'] = dependencia.nome_dependencia  
         
-        usuario = row.get('Conferido Por:')
-        if usuario is not None:
-            (usuario, _created) = User.objects.get_or_create(first_name=usuario)
+        nome_usuario = row.get('Conferido Por:')
+        if nome_usuario is not None:
+            (usuario, _created) = User.objects.get_or_create(first_name=nome_usuario)
+            usuario.username = nome_usuario.replace(' ', '_')
+            usuario.set_password('sigo1234')            
             row['Conferido Por:'] = usuario.first_name  
 
         return super().before_import_row(row, **kwargs)    
