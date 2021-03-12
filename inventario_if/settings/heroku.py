@@ -1,8 +1,8 @@
-import environ
+from  environ import Environ
 
 from inventario_if.settings.base import *
 
-env = environ.Env()
+env = Environ()
 
 DEBUG = env.bool("DEBUG", False)
 
