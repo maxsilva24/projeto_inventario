@@ -32,8 +32,6 @@ class DependenciaAdmin(admin.ModelAdmin):
 class ItemInventarioAdmin(ImportExportModelAdmin): 
     class Meta:
         model = ItemInventario
-        verbose_name = 'Teste'
-        verbose_name_plural ='Testes'  
 
     '''Admin View for '''
     resource_class = ItemInventarioResource 
@@ -74,9 +72,9 @@ class ItemInventarioAdmin(ImportExportModelAdmin):
         obj.usuario_conferencia = request.user
         super().save_model(request, obj, form, change)
 
-    def has_add_permission(self, request):
-        # return super().has_add_permission(request)
-        return False
+    # def has_add_permission(self, request):
+    #     # return super().has_add_permission(request)
+    #     return False
 
     def usuario_nome(self, obj):
         return  obj.usuario_conferencia.first_name if obj.usuario_conferencia is not None else ''

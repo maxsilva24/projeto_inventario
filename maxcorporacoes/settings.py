@@ -82,31 +82,35 @@ WSGI_APPLICATION = 'maxcorporacoes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# if DEBUG == True:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql',
-#             'NAME': 'd81mbiv73mpjgv',
-#             'USER': 'skkdbenmuygrqa',
-#             'PASSWORD': '26fb6dd013a0cdad21dd47ea0f43133a7cff9207a1996ac56e7518e7c92f0c29',
-#             'HOST': 'ec2-18-214-208-89.compute-1.amazonaws.com',
-#             'PORT': '5432',
-#         }
-#     }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG == True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'd81mbiv73mpjgv',
+            'USER': 'skkdbenmuygrqa',
+            'PASSWORD': '26fb6dd013a0cdad21dd47ea0f43133a7cff9207a1996ac56e7518e7c92f0c29',
+            'HOST': 'ec2-18-214-208-89.compute-1.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'd81mbiv73mpjgv',
+#         'USER': 'skkdbenmuygrqa',
+#         'PASSWORD': '26fb6dd013a0cdad21dd47ea0f43133a7cff9207a1996ac56e7518e7c92f0c29',
+#         'HOST': 'ec2-18-214-208-89.compute-1.amazonaws.com',
+#         'PORT': '5432',
+#     }
+# }
 
 
 

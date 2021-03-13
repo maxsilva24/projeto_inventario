@@ -61,5 +61,7 @@ class ItemInventario(models.Model):
                 return self.descricao[:50]
         return super().__str__()
     
+    
+
 
     
