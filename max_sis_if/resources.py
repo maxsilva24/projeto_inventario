@@ -32,8 +32,8 @@ class ItemInventarioResource(resources.ModelResource):
         model = ItemInventario
         # documentação do meta dados
         #    https://django-import-export.readthedocs.io/en/latest/api_resources.html     
-        batch_size = 100 #lotes de 100 dados
-        use_bulk = True
+        # batch_size = 100 #lotes de 100 dados
+        # use_bulk = True
         import_id_fields  = ('tombo',)
         #if you want to exclude any field from exporting
         exclude = ('id','usuario_conferencia', 'setor_conferencia', 'observacao','data_importacao', )    
@@ -90,6 +90,30 @@ class ItemInventarioResource(resources.ModelResource):
     def after_import(self, dataset, result, using_transactions, dry_run, **kwargs):
         settings.USE_TZ = self.valorTZ
         return super().after_import(dataset, result, using_transactions, dry_run, **kwargs)
+
+    def import_data_only_XLSX(self):
+        import tablib
+        import os
+        from max_sis_if.resources import ItemInventarioResource
+        from max_sis_if.models import ItemInventario
+        from io import BytesIO
+        import openpyxl
+        # from tqdm import tqdm
+        end_arquivo = os.path.join(os.getcwd(),'arquivos_tmp','2021_planilha_inventario_final_Macro2.xlsm')    
+        arq = open(end_arquivo, 'rb').read()
+        xlsx_book = openpyxl.load_workbook(BytesIO(arq), read_only=True, data_only=True)
+        dataset_tab = tablib.Dataset()
+        sheet = xlsx_book.active
+        # obtain generator
+        rows = sheet.rows
+        dataset_tab.headers = [cell.value for cell in next(rows)]
+        for row in rows:
+            row_values = [cell.value for cell in row]
+            dataset_tab.append(row_values)            
+        # print(dataset_tab)
+        # print(dataset_tab.headers)
+        result = ItemInventarioResource().import_data(dataset_tab, dry_run=False, raise_errors=True )
+        print(result.has_errors())
 
 
 

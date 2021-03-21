@@ -14,7 +14,8 @@ from max_sis_if.models import ItemInventario
 from io import BytesIO
 import openpyxl
 # from tqdm import tqdm
-end_arquivo = os.path.join(os.getcwd(),'arquivos_tmp','2021_planilha_inventario_teste_Macro.xlsm')   
+end_arquivo = os.path.join(os.getcwd(),'arquivos_tmp','2021_planilha_inventario_final_Macro2.xlsm')   
+# end_arquivo = os.path.join(os.getcwd(),'arquivos_tmp','2021_planilha_inventario_teste_Macro.xlsm')   
 # end_arquivo = os.path.join(os.getcwd(),'arquivos_tmp','2021_planilha_inventario_Max_final_2.xlsx')   
 # end_arquivo = os.path.join(os.getcwd(),'arquivos_tmp','2021_planilha_inventario_curta.xlsx')   
 arq = open(end_arquivo, 'rb').read()
