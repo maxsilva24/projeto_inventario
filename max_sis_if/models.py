@@ -76,6 +76,7 @@ class ItemInventario(models.Model):
     class Meta:
         verbose_name = 'Item do Inventário'
         verbose_name_plural ='Itens do Inventário'
+
     tombo = models.IntegerField(verbose_name='Tombo', null=True)
     descricao = models.TextField(verbose_name='descrição',null=True)    
     item_conferido =  models.BooleanField(verbose_name='Item Conferido?', null=True)
@@ -108,6 +109,9 @@ class ItemInventario(models.Model):
     def usuario_nome(self):
         return  self.usuario_conferencia.first_name if self.usuario_conferencia is not None else ''
     usuario_nome.short_description='Conferido por'
+
+   
+   
     
     
 

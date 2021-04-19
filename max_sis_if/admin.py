@@ -1,9 +1,12 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
+from django.contrib.auth.admin  import User
 
 from .models import Dependencia, ItemInventario, Setor
 from .resources import ItemInventarioResource
+from django.utils.translation import ngettext
+from django.utils.datetime_safe import datetime
 
 admin.AdminSite.site_header = 'Administração do Sistema'
 
@@ -121,14 +124,14 @@ class ItemInventarioAdmin(ImportExportModelAdmin):
     '''Admin View for '''
     resource_class = ItemInventarioResource 
     '''Admin View for '''
-    list_display = ('tombo', 'descricao','item_conferido', 'usuario_nome', 'dependencia_conferencia', 'setor_conferencia',)    
+    list_display = ('tombo', 'descricao','item_conferido', 'usuario_nome', 'data_conferencia','dependencia_conferencia', 'setor_conferencia',)    
     list_display_links =('tombo','descricao','dependencia_conferencia', 'setor_conferencia',)
     # list_select_related =('setor_conferencia','dependencia_conferencia', )
     list_filter = ('item_conferido','usuario_conferencia__first_name', 'dependencia_conferencia', 'setor_conferencia',)
     search_fields = ('tombo','descricao',)
     # raw_id_fields =('dependencia_conferencia',)
     # autocomplete_fields =('dependencia_conferencia',)
-    
+    actions = ['conferir_varios_itens']
     readonly_fields = ('tombo', 'descricao', 'usuario_conferencia','valor', 'conta_contabil', 
                        'setor_atual', 'empenho', 'fornecedor', 'numero_documento', 'data_aquisicao',
                         'data_ateste', 'responsavel','dependencia_atual','data_conferencia','data_importacao', )
@@ -164,5 +167,14 @@ class ItemInventarioAdmin(ImportExportModelAdmin):
 
     def has_add_permission(self, request):
         return False
+
+    def conferir_varios_itens(self, request, queryset):        
+        updated = queryset.update(item_conferido=True, usuario_conferencia =request.user, data_conferencia= datetime.now() )
+        self.message_user(request, ngettext(
+            '%d Item de Inventário foi conferido com sucesso.',
+            '%d Itens de Inventário foi conferido com sucesso',
+            updated,
+        ) % updated, messages.SUCCESS) 
+    conferir_varios_itens.short_description = 'Conferir itens selecionados'
 
 
