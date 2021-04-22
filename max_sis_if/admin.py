@@ -164,8 +164,18 @@ class ItemInventarioAdmin(ImportExportModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.usuario_conferencia = request.user
         if (obj.observacao != None) and (obj.observacao != ""):
-            valor_obs  =  obj.observacao.replace('<p>', '').replace('</p>', '')
-            obj.observacao = obj.observacao.replace(valor_obs, str.upper(valor_obs)
+            # gambiarra que o italo pediu para colocar sem etiquetas na observacao
+            #o objetivo é filtrar no tela de inventário os itens que tem o texto "SEM ETIQUETA" 
+            #Em paralelo foi criado verificar as variações dos texto sem etiqueta nas observações 
+            # o certo seria um bool no modelo
+            # TODO:Fazer campos check box SEM ETIQUETA 
+            valores_sem_etiqueta = ['SEM ETIQUETA', 'SEMETIQUETA','SE ETIQUETA', 'SEETIQUETA']
+            valor_obs  =  obj.observacao.replace('<p>', '').replace('</p>', '').strip().upper()
+            for valor in valores_sem_etiqueta:
+                if  valor in str.upper(obj.observacao): 
+                    # obj.observacao = obj.observacao.replace(valor_obs, (valor_obs))
+                    obj.observacao = 'SEM ETIQUETA'
+                    break
         super().save_model(request, obj, form, change)
 
     def has_add_permission(self, request):
