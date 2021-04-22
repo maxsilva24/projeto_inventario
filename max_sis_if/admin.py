@@ -170,7 +170,6 @@ class ItemInventarioAdmin(ImportExportModelAdmin):
             # o certo seria um bool no modelo
             # TODO:Fazer campos check box SEM ETIQUETA 
             valores_sem_etiqueta = ['SEM ETIQUETA', 'SEMETIQUETA','SE ETIQUETA', 'SEETIQUETA']
-            valor_obs  =  obj.observacao.replace('<p>', '').replace('</p>', '').strip().upper()
             for valor in valores_sem_etiqueta:
                 if  valor in str.upper(obj.observacao): 
                     # obj.observacao = obj.observacao.replace(valor_obs, (valor_obs))
