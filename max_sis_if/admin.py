@@ -127,7 +127,7 @@ class ItemInventarioAdmin(ImportExportModelAdmin):
     list_display = ('tombo', 'descricao','item_conferido', 'usuario_nome', 'data_conferencia','dependencia_conferencia', 'setor_conferencia',)    
     list_display_links =('tombo','descricao','dependencia_conferencia', 'setor_conferencia',)
     # list_select_related =('setor_conferencia','dependencia_conferencia', )
-    list_filter = ('item_conferido','usuario_conferencia__first_name', 'dependencia_conferencia', 'setor_conferencia',)
+    list_filter = ('item_conferido','usuario_conferencia__first_name', 'dependencia_conferencia', 'setor_conferencia','observacao',)
     search_fields = ('tombo','descricao',)
     # raw_id_fields =('dependencia_conferencia',)
     # autocomplete_fields =('dependencia_conferencia',)
@@ -163,6 +163,9 @@ class ItemInventarioAdmin(ImportExportModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.usuario_conferencia = request.user
+        if (obj.observacao != None) and (obj.observacao != ""):
+            valor_obs  =  obj.observacao.replace('<p>', '').replace('</p>', '')
+            obj.observacao = obj.observacao.replace(valor_obs, str.upper(valor_obs)
         super().save_model(request, obj, form, change)
 
     def has_add_permission(self, request):
