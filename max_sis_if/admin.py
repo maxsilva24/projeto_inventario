@@ -169,7 +169,7 @@ class ItemInventarioAdmin(ImportExportModelAdmin):
             #Em paralelo foi criado verificar as variações dos texto sem etiqueta nas observações 
             # o certo seria um bool no modelo
             # TODO:Fazer campos check box SEM ETIQUETA 
-            valores_sem_etiqueta = ['SEM ETIQUETA', 'SEMETIQUETA','SE ETIQUETA', 'SEETIQUETA']
+            valores_sem_etiqueta = ['SEM ETIQUETA', 'SEMETIQUETA','SE ETIQUETA', 'SEETIQUETA','SEM&NBSP;ETIQUETA', 'SE&NBSP;ETIQUETA']
             for valor in valores_sem_etiqueta:
                 if  valor in str.upper(obj.observacao): 
                     # obj.observacao = obj.observacao.replace(valor_obs, (valor_obs))
